@@ -1,73 +1,116 @@
-# React + TypeScript + Vite
+# Frontend Dashboard – Project Setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a clean, default configuration for a modern frontend dashboard built with React. It comes structured and ready for development with theming, routing, state management, and modular features.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Structure
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── app
+│   ├── providers
+│   │   └── ThemeProvider.tsx      # Handles light/dark theme context
+│   ├── store.ts                   # Root store configuration (Zustand or similar)
+│   └── useThemeStore.ts           # Custom hook for theme state
+├── App.tsx                        # Main app entry
+├── assets
+│   └── react.svg                   # Logo or static assets
+├── components
+│   └── layout
+│       ├── Header.tsx / Header.css
+│       ├── MainLayout.tsx / MainLayout.css
+│       └── Sidebar.tsx / Sidebar.css
+├── config
+│   └── i18n.ts                     # Internationalization setup
+├── core
+│   └── api
+│       ├── client.ts               # API client instance
+│       └── types.ts                # Shared API types
+├── features
+│   ├── auth
+│   │   ├── pages
+│   │   │   ├── Login.tsx
+│   │   │   ├── Signup.tsx
+│   │   │   └── Auth.css
+│   │   ├── store
+│   │   │   └── authStore.ts        # Auth state management
+│   │   └── types.ts
+│   ├── dashboard
+│   │   └── pages
+│   │       ├── Dashboard.tsx
+│   │       └── Dashboard.css
+│   └── vehicles
+│       ├── pages
+│       │   └── VehiclesPage.tsx
+│       └── types.ts
+├── main.tsx                        # React DOM entry point
+├── routes
+│   ├── AppRoutes.tsx               # App-level route definitions
+│   └── ProtectedRoute.tsx          # Route guard for authenticated pages
+├── styles
+│   └── globals.css                 # Global styles
+└── types
+    └── index.ts                    # Shared TypeScript types
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Features
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* **Theming:** Light/Dark mode support via `ThemeProvider` and `useThemeStore`.
+* **Routing:** Modular route setup with `AppRoutes` and protected routes.
+* **State Management:** Centralized store in `store.ts`, feature-level stores for auth and other modules.
+* **Feature-Based Structure:** Each feature has its own folder with pages, state, and types for scalability.
+* **API Integration:** Centralized API client and type definitions for consistent requests.
+* **Styling:** Modular CSS per component/page for maintainable UI.
+
+---
+
+## Getting Started
+
+1. **Install dependencies**
+
+```bash
+npm install
+# or
+yarn install
 ```
+
+2. **Run development server**
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+3. **Build for production**
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+4. **Preview production build**
+
+```bash
+npm run preview
+# or
+yarn preview
+```
+
+---
+
+## Recommended Workflow
+
+* Add new features under `features/` with separate pages, store, and types.
+* Keep layouts and shared components in `components/layout`.
+* Define all routes in `routes/AppRoutes.tsx`.
+* Use `core/api/client.ts` for API calls to maintain consistency.
+* Use `styles/globals.css` for global styles and per-component CSS for modularity.
+
+---
+
+This setup is ready for scaling, adding authentication, dashboards, and domain-specific modules like vehicles or reports.
