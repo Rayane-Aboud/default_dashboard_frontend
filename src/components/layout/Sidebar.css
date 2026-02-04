@@ -1,18 +1,35 @@
 .sidebar {
   width: 250px;
-  background-color: var(--bg-sidebar, #1f2937);
-  color: var(--text-sidebar, #ffffff);
+  background: var(--sidebar-bg);
+  color: white;
   position: fixed;
   left: 0;
   top: 64px;
   bottom: 0;
   overflow-y: auto;
-  transition: width 0.3s ease, transform 0.3s ease;
   z-index: 50;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, width 0.3s ease;
 }
 
 .sidebar.closed {
   width: 60px;
+}
+
+/* Mobile - Hidden by default */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar.closed {
+    width: 250px;
+    transform: translateX(-100%);
+  }
 }
 
 .sidebar-nav {
@@ -21,51 +38,42 @@
 
 .nav-list {
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.875rem 1.25rem;
-  color: var(--text-sidebar-muted, #9ca3af);
+  padding: 0.875rem 1rem;
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: all 0.2s;
-  white-space: nowrap;
 }
 
 .nav-item:hover {
-  background-color: var(--bg-sidebar-hover, #374151);
-  color: var(--text-sidebar, #ffffff);
+  background: var(--sidebar-hover);
+  color: white;
 }
 
 .nav-item.active {
-  background-color: var(--color-primary, #3b82f6);
+  background: var(--primary);
   color: white;
-  border-left: 4px solid var(--color-primary-light, #60a5fa);
 }
 
 .nav-icon {
   font-size: 1.25rem;
   min-width: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 }
 
 .nav-label {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  white-space: nowrap;
 }
 
 .sidebar.closed .nav-label {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
+  display: none;
 }
 
 .sidebar.closed .nav-item {
@@ -73,30 +81,9 @@
   padding: 0.875rem 0;
 }
 
-/* Responsive - Mobile */
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
-  }
-
-  .sidebar.closed {
-    width: 250px;
-    transform: translateX(-100%);
-  }
-}
-
-/* Scrollbar styling */
+/* Scrollbar */
 .sidebar::-webkit-scrollbar {
   width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
